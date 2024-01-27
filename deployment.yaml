@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shifu-plate-avg-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shifu-plate-avg
+  template:
+    metadata:
+      labels:
+        app: shifu-plate-avg
+    spec:
+      containers:
+        - name: shifu-plate-avg
+          image: ghcr.io/travisroad/shifu-plate-avg:v0.0.2
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 5
