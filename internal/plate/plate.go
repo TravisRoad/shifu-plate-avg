@@ -59,7 +59,7 @@ func (p *Plate) Poll(ctx context.Context, d time.Duration) {
 				// jump out select
 				break
 			}
-			slog.Float64("avg", avg)
+			slog.Info("", slog.Float64("avg", avg))
 		case <-ctx.Done():
 			return
 		}
